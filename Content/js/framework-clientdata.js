@@ -13,10 +13,12 @@ $.clientsInit = function () {
         authorizeButton: []
     };
     var init = function () {
+       var token= $.cookie("qk");
         $.ajax({
             url: prefix+"ClientsData/GetClientsDataJson",
             type: "get",
             dataType: "json",
+            data: { "token":token},
             async: false,
             success: function (data) {
                 dataJson.dataItems = data.dataItems;
