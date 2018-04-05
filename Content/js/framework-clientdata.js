@@ -17,8 +17,11 @@ $.clientsInit = function () {
         $.ajax({
             url: prefix+"ClientsData/GetClientsDataJson",
             type: "get",
+			
+			beforeSend: function(request) {
+                        request.setRequestHeader("Authorize",token);
+                    },
             dataType: "json",
-            data: { "token":token},
             async: false,
             success: function (data) {
                 dataJson.dataItems = data.dataItems;

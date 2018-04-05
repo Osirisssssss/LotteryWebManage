@@ -29,11 +29,11 @@
             </div>
             <form class="form">
                 <div class="row">
-                    <input id="txt_account" type="text" placeholder="用户名/手机号/邮箱">
+                    <input id="txt_account" type="text" placeholder="用户名/手机号/邮箱" value="admin">
                     <i class="fa fa-user"></i>
                 </div>
                 <div class="row">
-                    <input id="txt_password" type="password" placeholder="登录密码">
+                    <input id="txt_password" type="password" placeholder="登录密码" value="0000">
                     <i class="fa fa-key"></i>
                 </div>
                 <div class="row">
@@ -95,23 +95,14 @@
                     } else {
                         $("#login_button").attr('disabled', 'disabled').find('span').html("loading...");
                         $.ajax({
-                            url: "http://localhost:1851/Login/CheckLogin",
-                            data: { username: $.trim($username.val()), password: $.md5($.trim($password.val())), code: $.trim($code.val()) },
-                            type: "post",
+                            url: "http://localhost:65280/GetMemberInfoByToken",
+                            type: "get",
+							beforeSend: function(request) {
+                        request.setRequestHeader("Authorize","5D297D683EAACA1912EB6F68256F333CB18090BF0078556C6168442005DCCC7ECF0938AF845CDB004EDE4B0B3B0E2EF9A41D9F953E9CCA08175E8C973540822CEEC662D876BD6A96880F4E43829130CB67D81A0D6BF8F2B7915B87B996A81919DB299EF1A6C2B64815A26BE2F0F6692571E4F140EA8F34955BC88FC17883697E868CDE239033DF031A7C93DF4FE7C6F476B22CC9F9A4CE2D5B27F4A7D63704517999CF657A726E96C8D8B22A848AF9D3F1178E6F81038F74217561F5A3FFD333700F8BEB69FCD906A0FFEA0AC68575BA804B02286C6D8718C767B287E2570FEB");
+                    },
                             dataType: "json",
                             success: function (data) {
-                                if (data.state == "success") {
-                                    $.cookie('qk', data.data, { expires: 7 });
-                                    $("#login_button").find('span').html("登录成功，正在跳转...");
-                                    window.setTimeout(function () {
-                                        window.location.href = "index.html";
-                                    }, 500);
-                                } else {
-                                    $("#login_button").removeAttr('disabled').find('span').html("登录");
-                                    $("#switchCode").trigger("click");
-                                    $code.val('');
-                                    $.login.formMessage(data.message);
-                                }
+                                
                             }
                         });
                     }
