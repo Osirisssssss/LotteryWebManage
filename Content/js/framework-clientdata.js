@@ -14,10 +14,11 @@ $.clientsInit = function () {
     };
     var init = function () {
        var token= $.cookie("qk");
+	   alert(token);
         $.ajax({
             url: prefix+"ClientsData/GetClientsDataJson",
             type: "get",
-			
+
 			beforeSend: function(request) {
                         request.setRequestHeader("Authorize",token);
                     },
