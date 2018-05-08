@@ -95,7 +95,7 @@
                     } else {
                         $("#login_button").attr('disabled', 'disabled').find('span').html("loading...");
                         $.ajax({
-                            url: "http://localhost:1851/Login/CheckLogin",
+                            url: prefix+"Login/CheckLogin",
                             data: { username: $.trim($username.val()), password: $.md5($.trim($password.val())), code: $.trim($code.val()) },
                             type: "post",
                             dataType: "json",
